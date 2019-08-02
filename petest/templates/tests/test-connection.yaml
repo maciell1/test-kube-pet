@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "petest-app.fullname" . }}-test-connection"
+  labels:
+    app.kubernetes.io/name: {{ include "petest-app.name" . }}
+    helm.sh/chart: {{ include "petest-app.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args:  ['{{ include "petest-app.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never

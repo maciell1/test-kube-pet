@@ -1,8 +1,8 @@
 FROM node:9-alpine
+ENV NAME="Leonardo Maciel"
+MAINTAINER "Leonardo Maciel"
 WORKDIR /src
-MAINTAINER Leonardo Maciel
 COPY app/ .
 RUN npm install --quiet
-EXPOSE 3001
+EXPOSE 3000
 CMD npm start
-
